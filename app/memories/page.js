@@ -1,4 +1,4 @@
-export default function Page() {
+export default function MemoriesPage() {
   return (
     <main
       style={{
@@ -8,7 +8,7 @@ export default function Page() {
       }}
     >
       <section
-        aria-label="Workspace"
+        aria-label="Memories workspace"
         style={{
           minHeight: "calc(100vh - 20px)",
           background: "#fff",

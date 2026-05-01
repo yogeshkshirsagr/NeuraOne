@@ -1,15 +1,117 @@
 body {
-  background: #0b0b0b;
   margin: 0;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, sans-serif;
+  background: #efe7eb;
 }
 
-.ProseMirror {
-  min-height: 400px;
+/* Layout */
+.main {
+  padding: 8px;
+}
+
+.container {
+  min-height: 100vh;
+  background: #e5e7eb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  position: relative;
+}
+
+/* Header */
+.header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.icon-btn.dark {
+  color: #111827;
+}
+
+/* Center content */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  text-align: center;
+}
+
+.center h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.center p {
+  color: #9ca3af;
+  margin-top: 16px;
+}
+
+.spark {
+  color: #06add4;
+  margin-bottom: 20px;
+}
+
+/* Input */
+.input-wrapper {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-box {
+  width: min(900px, 90%);
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
   padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.input-box input {
+  width: 100%;
+  border: none;
   outline: none;
-  color: white;
-  border: 1px solid #333;
-  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* Bottom controls */
+.input-bottom {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Buttons */
+.mode-btn {
+  background: #e5e7eb;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
 }
