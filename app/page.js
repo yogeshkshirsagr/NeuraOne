@@ -1,22 +1,15 @@
-export default function Page() {
-  return (
-    <main
-      style={{
-        minHeight: "100vh",
-        padding: 10,
-        boxSizing: "border-box",
-      }}
-    >
-      <section
-        aria-label="Workspace"
-        style={{
-          minHeight: "calc(100vh - 20px)",
-          background: "#fff",
-          border: "1px solid #e5e7eb",
-          borderRadius: 12,
-          boxSizing: "border-box",
-        }}
-      />
-    </main>
-  );
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { initUser } from "@/lib/initUser";
+
+export default async function Page() {
+  const user = await currentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const workspaceId = await initUser(user.id);
+
+  redirect(`/workspace/${workspaceId}/chat`);
 }

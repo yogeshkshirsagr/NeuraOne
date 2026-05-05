@@ -1,117 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  margin: 0;
-  font-family: Inter, sans-serif;
-  background: #efe7eb;
+  background-color: #f3f4f6;
 }
 
-/* Layout */
-.main {
-  padding: 8px;
+.notion-editor {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #2d2d2d;
+  outline: none;
 }
 
-.container {
-  min-height: 100vh;
-  background: #e5e7eb;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  position: relative;
+/* Paragraph spacing */
+.notion-editor p {
+  margin: 6px 0;
 }
 
-/* Header */
-.header {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
+/* Headings like Notion */
+.notion-editor h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 20px 0 10px;
 }
 
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: transparent;
-  color: #6b7280;
-  cursor: pointer;
+.notion-editor h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0 8px;
 }
 
-.icon-btn.dark {
-  color: #111827;
+/* Lists */
+.notion-editor ul {
+  padding-left: 20px;
 }
 
-/* Center content */
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -60%);
-  text-align: center;
+.notion-editor li {
+  margin: 4px 0;
 }
 
-.center h1 {
-  font-size: 22px;
-  margin: 0;
+/* Placeholder style */
+.notion-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #aaa;
+  pointer-events: none;
 }
 
-.center p {
-  color: #9ca3af;
-  margin-top: 16px;
-}
-
-.spark {
-  color: #06add4;
-  margin-bottom: 20px;
-}
-
-/* Input */
-.input-wrapper {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.input-box {
-  width: min(900px, 90%);
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.input-box input {
-  width: 100%;
-  border: none;
+.ProseMirror {
   outline: none;
   font-size: 16px;
+  line-height: 1.7;
+  color: #222;
 }
 
-/* Bottom controls */
-.input-bottom {
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
+.ProseMirror h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 16px 0 8px;
 }
 
-/* Buttons */
-.mode-btn {
-  background: #e5e7eb;
-  border: none;
-  border-radius: 20px;
-  padding: 10px 16px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  cursor: pointer;
+.ProseMirror h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 14px 0 6px;
 }
 
-.send-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  border: none;
-  background: #e5e7eb;
-  cursor: pointer;
+.ProseMirror p {
+  margin: 8px 0;
+}
+
+.ProseMirror ul {
+  padding-left: 20px;
+}
+
+.ProseMirror blockquote {
+  border-left: 3px solid #ddd;
+  padding-left: 10px;
+  color: #666;
 }

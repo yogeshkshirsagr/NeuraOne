@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id              String            @id
+  email           String?           @unique
+
+  chats           Chat[]
+  memories        Memory[]
+  notes           Note[]
+  folders         Folder[]
+
+  ownedWorkspaces Workspace[]       @relation("UserOwnedWorkspaces")
+  memberships     WorkspaceMember[]
+}
+
+model Workspace {
+  id        String   @id @default(uuid())
+  name      String
+  type      String
+  createdAt DateTime @default(now())
+
+  ownerId   String
+  owner     User     @relation("UserOwnedWorkspaces", fields: [ownerId], references: [id])
+
+  chats     Chat[]
+  folders   Folder[]
+  memories  Memory[]
+  notes     Note[]
+  members   WorkspaceMember[]
+
+  @@index([ownerId])
+}
+
+model WorkspaceMember {
+  id          String    @id @default(uuid())
+
+  userId      String
+  workspaceId String
+  role        String
+
+  user        User      @relation(fields: [userId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@unique([userId, workspaceId])
+}
+
+model Folder {
+  id          String   @id @default(uuid())
+
+  workspaceId String
+  userId      String
+  name        String
+
+  createdAt   DateTime @default(now())
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+  notes       Note[]
+
+  @@index([workspaceId])
+  @@index([userId])
+}
+
+model Note {
+  id          String   @id @default(uuid())
+
+  workspaceId String
+  userId      String
+  folderId    String?
+
+  title       String
+  content     String
+
+  // ✅ NEW FIELDS FOR TABLE
+  type        String   @default("note")
+  tags        String[] @default([])
+  linked      Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  folder      Folder?   @relation(fields: [folderId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@index([workspaceId])
+  @@index([userId])
+  @@index([folderId])
+}
+
+model Chat {
+  id          String   @id @default(uuid())
+  workspaceId String
+  userId      String
+  messages    Json
+  createdAt   DateTime @default(now())
+
+  user        User      @relation(fields: [userId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+model Memory {
+  id          String   @id @default(uuid())
+
+  content     String
+  userId      String
+  workspaceId String
+
+  createdAt   DateTime @default(now())
+
+  user        User      @relation(fields: [userId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}

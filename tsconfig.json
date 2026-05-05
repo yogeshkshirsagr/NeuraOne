@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
-  "exclude": ["node_modules"]
+, "app/components/SidebarClient.js", "app/page.js", "app/workspace/[workspaceId]/layout.js", "app/layout.js"  ],
+  "exclude": ["node_modules", "prisma.config.ts"]
 }
