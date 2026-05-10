@@ -4,11 +4,8 @@ export default clerkMiddleware();
 
 export const config = {
   matcher: [
-    /*
-     * Match all routes except:
-     * - static files
-     * - next internals
-     */
     "/((?!_next|.*\\..*).*)",
+    "/",
+    "/(api|trpc)(.*)",
   ],
 };

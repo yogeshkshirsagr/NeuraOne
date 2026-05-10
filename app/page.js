@@ -1,15 +1,15 @@
-import { currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { initUser } from "@/lib/initUser";
 
 export default async function Page() {
-  const user = await currentUser();
+  const { userId } = await auth();
 
-  if (!user) {
+  if (!userId) {
     redirect("/sign-in");
   }
 
-  const workspaceId = await initUser(user.id);
+  const workspaceId = await initUser(userId);
 
   redirect(`/workspace/${workspaceId}/chat`);
 }

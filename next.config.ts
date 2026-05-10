@@ -1,6 +1,7 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbo: false,
+  turbopack: {
+    root: "C:/Users/Yogesh/NeuraOne",
   },
 };
 

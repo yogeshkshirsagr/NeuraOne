@@ -1,23 +1,24 @@
 "use client";
+
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FolderSidebar({
   folders: initialFolders,
   activeFolder,
-  setActiveFolder,
   workspaceId,
 }) {
   const [folders, setFolders] = useState(initialFolders || []);
   const [creating, setCreating] = useState(false);
   const [newName, setNewName] = useState("");
 
+  const router = useRouter();
+
   // 🔥 CREATE FOLDER
   const createFolder = async () => {
     if (!newName.trim()) return;
 
     try {
-      setCreating(true);
-
       const res = await fetch("/api/folders", {
         method: "POST",
         headers: {
@@ -25,7 +26,7 @@ export default function FolderSidebar({
         },
         body: JSON.stringify({
           name: newName,
-          workspaceId, // ✅ REQUIRED
+          workspaceId,
         }),
       });
 
@@ -36,14 +37,19 @@ export default function FolderSidebar({
         return;
       }
 
-      // ✅ update UI instantly (NO reload)
+      // update sidebar instantly
       setFolders((prev) => [...prev, data]);
 
+      // reset input
       setNewName("");
       setCreating(false);
+
+      // 🔥 go to folder url
+      router.push(
+        `/workspace/${workspaceId}/memories/${data.id}`
+      );
     } catch (err) {
       console.error("Create folder error:", err);
-      setCreating(false);
     }
   };
 
@@ -65,13 +71,15 @@ export default function FolderSidebar({
           style={{
             fontSize: 18,
             cursor: "pointer",
+            background: "transparent",
+            border: "none",
           }}
         >
           +
         </button>
       </div>
 
-      {/* 🔥 CREATE INPUT */}
+      {/* CREATE FOLDER */}
       {creating && (
         <div style={{ marginBottom: 10 }}>
           <input
@@ -89,7 +97,10 @@ export default function FolderSidebar({
           />
 
           <div style={{ display: "flex", gap: 6 }}>
-            <button onClick={createFolder}>Create</button>
+            <button onClick={createFolder}>
+              Create
+            </button>
+
             <button
               onClick={() => {
                 setCreating(false);
@@ -106,13 +117,20 @@ export default function FolderSidebar({
       {folders.map((folder) => (
         <div
           key={folder.id}
-          onClick={() => setActiveFolder(folder.id)}
+          onClick={() => {
+            router.push(
+              `/workspace/${workspaceId}/memories/${folder.id}`
+            );
+          }}
           style={{
             padding: 8,
             cursor: "pointer",
             borderRadius: 6,
+            marginBottom: 4,
             background:
-              activeFolder === folder.id ? "#f3f4f6" : "transparent",
+              activeFolder === folder.id
+                ? "#f3f4f6"
+                : "transparent",
           }}
         >
           {folder.name}

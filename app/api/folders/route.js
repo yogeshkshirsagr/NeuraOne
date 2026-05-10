@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 
 export async function POST(req) {
   try {
-    const user = await currentUser();
+    const { userId } = await auth();
 
-    if (!user) {
+    if (!userId) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -22,7 +22,7 @@ export async function POST(req) {
       data: {
         name,
         workspaceId,
-        userId: user.id,
+        userId,
       },
     });
 

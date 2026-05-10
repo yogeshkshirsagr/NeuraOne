@@ -1,5 +1,6 @@
 import Sidebar from "@/components/Sidebar";
 
+
 export default async function WorkspaceLayout({ children, params }) {
   const { workspaceId } = await params;
 
